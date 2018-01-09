@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html ng-app="appProducto">
+<head>
+	<meta charset="UTF-8">
+	<title>Tiendita</title>
+	<!-- js -->
+	<script src="js/angular/angular.min.js"></script>
+	<script src="js/bootstrap-ui/ui-bootstrap-tpls-2.5.0.js"></script>
+	<script src="js/models/core.js"></script>
+	<script src="js/models/producto.js"></script>
+	<!-- CSS -->
+	<link rel="stylesheet" href="css/bootstrap-ui/ui-bootstrap-2.5.0-csp.css">
+	<link rel='stylesheet prefetch' href='css/bootstrap.min.css'>
+	<link rel='stylesheet prefetch' href='css/bootstrap-theme.min.css'>
+	<!-- <link rel='stylesheet prefetch' href='css/bootstrapValidator.min.css'> -->
+	<link rel="stylesheet" href="css/style.css">
+</head>
+<body ng-controller="productoController" ng-init="verProductos();">
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <a style="color:white;" class="navbar-brand" href="http://localhost:8080/">La Miscelanea</a>
+          </div>
+        </div><!--/.container-fluid -->
+      </nav>
+    
+    <div class="row">
+    	<div class="col-md-1">
+    	</div>
+    	<div class="col-md-8">
+    		<!-- Lista de productos -->
+			<table class="table" ng-show="verAccion(0);">
+				<thead>	
+					<tr>
+						<th>Codigo</th>
+						<th>Nombre</th>
+						<th>Precio</th>
+						<th>Acciones</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="producto in productos">
+						<td>{{producto.idProducto}}</td>
+						<td>{{producto.nombre}}</td>
+						<td>{{producto.precio}}</td>
+						<td>
+							<button type="button" class="btn btn-danger" ng-click="eliminarProducto(producto);">Eliminar</button>
+							<button type="button" class="btn btn-success" ng-show="verAccion(0);" ng-click="preparar(producto);">Actualizar</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			
+			<!-- Agregar producto -->
+			<form ng-show="verAccion(1);" name="agregarForm">
+				  <div class="form-group">
+				    <label>Nombre:</label>
+				    <input type="text"  ng-model="producto.nombre" value="" text="" class="form-control" />
+				  </div>
+				  <div class="form-group">
+				    <label>Precio:</label>
+				    <input type="text"  ng-model="producto.precio" value="" text="" class="form-control" />
+				  </div>
+			 	 <button type="button" class="btn btn-primary" ng-click="guardarProducto(producto)">Guardar</button>
+			</form>
+			
+			<!-- Actualizar producto -->
+			<form ng-show="verAccion(2);">
+				  <div class="form-group">
+				    <label>Id:</label>
+				    <input type="text"  ng-model="producto.idProducto" text="{{producto.idProducto}}" readonly="readonly" class="form-control" />
+				    <label style="color:red; font-size:8px;">No editable, solo para propósitos de información</label>
+				  </div>
+				  <div class="form-group">
+				    <label>Nombre:</label>
+				    <input type="text"  ng-model="producto.nombre" text="{{producto.nombre}}" class="form-control" />
+				  </div>
+				  <div class="form-group">
+				    <label>Precio:</label>
+				    <input type="text"  ng-model="producto.precio" text="{{producto.precio}}" class="form-control" />
+				  </div>
+			 	 <button type="button" class="btn btn-success" ng-click="actualizarProducto(producto);">Actualizar</button>
+			</form>
+    	</div>
+    	<div class="col-md-2">
+    		<button class="btn btn-success" ng-show="verAccion(1);" ng-click="hacerAccion(0)">Ver productos</button>
+    		<button class="btn btn-success" ng-show="verAccion(2);" ng-click="hacerAccion(0)">Ver productos</button>
+			<button class="btn btn-success" ng-show="verAccion(0);" ng-click="hacerAccion(1)">Agregar productos</button>
+    	</div>
+    	<div class="col-md-1">
+    	</div>
+    </div>
+    
+    <div class="navbar navbar-fixed-bottom footer">
+		<div class="container">
+		   <div class="row">
+		      <div class="col-12">
+		         <p>Soluciones Digitales &copy; 2018</p>
+		      </div>
+		   </div>
+		</div>
+	</div>
+</body >
+</html>
